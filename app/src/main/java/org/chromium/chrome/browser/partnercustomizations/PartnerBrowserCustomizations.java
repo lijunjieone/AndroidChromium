@@ -122,18 +122,22 @@ public class PartnerBrowserCustomizations {
                     ContentResolver contentResolver = context.getContentResolver();
                     Cursor cursor = contentResolver.query(
                             buildQueryUri(PARTNER_HOMEPAGE_PATH), null, null, null, null);
+                    Log.e("custome","7");
                     if (cursor != null && cursor.moveToFirst() && cursor.getColumnCount() == 1
                             && !isCancelled()) {
+                        Log.e("custome","8");
                         if (TextUtils.isEmpty(sHomepage)
                                 || !sHomepage.equals(cursor.getString(0))) {
                             mHomepageUriChanged = true;
                         }
                         sHomepage = cursor.getString(0);
+                        Log.e("custome","9"+sHomepage);
                     }
                     if (cursor != null) cursor.close();
                 } catch (Exception e) {
                     Log.w(TAG, "Partner homepage provider URL read failed : ", e);
                 }
+                Log.e("custome","10");
             }
 
             private void refreshIncognitoModeDisabled() {
@@ -175,10 +179,13 @@ public class PartnerBrowserCustomizations {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
+                    Log.e("custome","1");
                     ProviderInfo providerInfo = context.getPackageManager()
                             .resolveContentProvider(sProviderAuthority, 0);
+                    Log.e("custome","2");
                     if (providerInfo == null) return null;
 
+                    Log.e("custome","3");
                     if ((providerInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0
                             && !sIgnoreBrowserProviderSystemPackageCheck) {
                         Log.w("TAG", "Browser Cutomizations content provider package, "
@@ -187,15 +194,19 @@ public class PartnerBrowserCustomizations {
                                 + "so skip reading the browser content provider.");
                         return null;
                     }
+                    Log.e("custome","4");
 
                     if (isCancelled()) return null;
                     refreshIncognitoModeDisabled();
+                    Log.e("custome","5");
 
                     if (isCancelled()) return null;
                     refreshBookmarksEditingDisabled();
 
                     if (isCancelled()) return null;
+                    Log.e("custome","6");
                     refreshHomepage();
+
                 } catch (Exception e) {
                     Log.w(TAG, "Fetching partner customizations failed", e);
                 }
@@ -291,5 +302,6 @@ public class PartnerBrowserCustomizations {
             return commandLine.getSwitchValue(ChromeSwitches.PARTNER_HOMEPAGE_FOR_TESTING);
         }
         return sHomepage;
+//        return "http://m.baidu.com";
     }
 }
