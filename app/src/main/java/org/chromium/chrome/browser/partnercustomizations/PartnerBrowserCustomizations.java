@@ -179,7 +179,7 @@ public class PartnerBrowserCustomizations {
                             .resolveContentProvider(sProviderAuthority, 0);
                     if (providerInfo == null) return null;
 
-                    if ((providerInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0
+                    if ((providerInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0
                             && !sIgnoreBrowserProviderSystemPackageCheck) {
                         Log.w("TAG", "Browser Cutomizations content provider package, "
                                 + providerInfo.packageName + ", is not a system package. "

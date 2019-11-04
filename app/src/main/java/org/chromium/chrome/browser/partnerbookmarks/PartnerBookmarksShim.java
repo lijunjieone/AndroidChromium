@@ -27,7 +27,7 @@ public class PartnerBookmarksShim {
         sIsReadingAttempted = true;
 
         PartnerBookmarksReader reader = new PartnerBookmarksReader(context);
-        if ((context.getApplicationInfo().flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
+        if ((context.getApplicationInfo().flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
             reader.onBookmarksRead();
             return;
         }
